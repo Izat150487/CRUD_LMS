@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@500&family=Inconsolata&family=Macondo&display=swap" rel="stylesheet">
+    <style>
+        body {
+            width: 1200px;
+            margin: 0 auto;
+            background-repeat: no-repeat;
+            background-image: url("https://img.freepik.com/premium-photo/abstract-3d-surface_553544-2835.jpg?w=900");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 600px;
+            text-align: center;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 500px;
+            height: 200px;
+            align-items: center;
+        }
+        h1 {
+            color: indigo;
+            font-size: 5rem;
+            font-family: 'Times New Roman';        }
+        button {
+            color: black;
+            text-decoration: none;
+            width: 130px;
+            height: 40px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 20px;
+            background-color: darkgreen;
+            transition: 1s;
+            outline: none;
+            border: none;
+        }
+        button:hover {
+            border-radius: 15px;
+            box-shadow: 0 0 7px black;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>table,
+    td {
+        border: 1px solid #d0c6c6;
+        margin-top: 150px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    thead,
+    tfoot {
+        background-color: #5d32b4;
+        color: #6e5996;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid #6e5996;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<button type="button" class="btn btn-outline-secondary" th:href="@{/courses}"><a th:href= "@{/courses}">Course</a></button>
+<button type="button" class="btn btn-outline-success" th:href="@{/groups}"> <a th:href= "@{/groups}">Group</a></button>
+<button type="button" class="btn btn-outline-danger" th:href="@{/teachers}"><a th:href="@{/teachers}">Teachers</a></button>
+<button type="button" class="btn btn-outline-warning" th:href="@{/students}"><a th:href="@{/students}">Students</a></button>
+<table class="table table-bordered ">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Company name</th>
+        <th scope="col">Located country</th>
+        <th scope="col">Students</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="company : ${companies}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.locatedCountry}"></td>
+        <td>
+            <a th:href="@{/companies/getStudents/{companyId}(companyId=${company.getId()})}">
+                <input type="submit" value="students">
+            </a>
+        </td>
+
+        <td><a th:href="@{/companies/{id}/updateCompany(id=${company.id})}">
+            <button style="height: 40px; width: 100px; background-color:white;">update</button>
+        </a>
+        </td>
+        <td><form th:method="DELETE" th:action="@{/companies/{id}(id=${company.getId()})}">
+            <input type="submit" value="delete" style="height: 40px; width: 100px; background-color:white;"/></form></td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:25px;" type="button" value="new Company"
+       onclick="window.location.href = 'companies/addCompany'">
+</body>
+</html>

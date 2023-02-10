@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+</head>
+<body>
+<table >
+    <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Study format</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    <tr th:each="student:${students}">
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.studyFormat}"></td>
+        <td><a th:href="@{/students/{id}/updateStudent(id=${student.id})}">
+            <button style="height: 30px; width: 100px; background-color:blue;">update</button>
+        </a>
+        </td>
+        <td><form th:method="DELETE" th:action="@{/students/{id}(id=${student.getId()})}">
+            <input type="submit" value="delete" style="height: 30px; width: 80px; background-color:red;"/></form></td>
+    </tr>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add Student"
+       onclick="window.location.href = 'students/addStudent'">
+
+</body>
+</html>
